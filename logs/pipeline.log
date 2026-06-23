@@ -1,0 +1,9 @@
+2026-06-23 19:52:15,244 | INFO | ============================================================
+2026-06-23 19:52:15,244 | INFO | RIDE-HAILING DATA WAREHOUSE PIPELINE STARTED
+2026-06-23 19:52:15,245 | INFO | ============================================================
+2026-06-23 19:52:15,245 | INFO | STEP 1 - Loading raw CSV data into staging_trips
+2026-06-23 19:52:19,378 | INFO | STEP 2 - Loading dimension tables
+2026-06-23 19:52:19,535 | INFO | STEP 3 - Loading fact_trips table
+2026-06-23 19:52:19,940 | INFO | STEP 4 - Running data quality checks
+2026-06-23 19:52:19,976 | INFO | PIPELINE COMPLETED SUCCESSFULLY
+2026-06-23 19:52:19,976 | INFO | ============================================================
