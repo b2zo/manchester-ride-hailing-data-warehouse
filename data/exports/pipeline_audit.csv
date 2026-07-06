@@ -1,0 +1,3 @@
+audit_id,pipeline_name,run_status,rows_loaded,run_started_at,run_finished_at,error_message
+1,ride_hailing_dw_pipeline,SUCCESS,50000,2026-06-23 19:00:24.843944,2026-06-23 19:00:29.55018,
+2,ride_hailing_dw_pipeline,SUCCESS,50000,2026-06-23 19:52:15.244486,2026-06-23 19:52:19.975291,

@@ -1,0 +1,145 @@
+table 'public vw_daily_performance'
+	lineageTag: 5ee66418-2018-4934-9296-6fe4655012b4
+
+	measure 'Total Revenue' = SUM('public vw_daily_performance'[total_revenue])
+		formatString: """£""#,##0,,.00""M"""
+		lineageTag: 4f5e82ca-817c-4b17-b8e0-dfc567eb762d
+
+	measure 'Total Profit' = SUM('public vw_daily_performance'[total_profit])
+		formatString: """£""#,##0,,.00""M"""
+		lineageTag: 87b73a06-629d-4441-a284-83a790b971c0
+
+	measure 'Total Trips' = SUM('public vw_daily_performance'[total_trips])
+		formatString: #,##0,"K"
+		lineageTag: 0286f7cb-9319-42b0-897d-b6a9d0a53f90
+
+	measure 'Average Profit per Hour' = AVERAGE('public vw_daily_performance'[avg_profit_per_hour])
+		formatString: """£""#,##0.00""/hr"""
+		lineageTag: fc95703d-6d3d-4c4b-8926-d8865992ea9a
+
+	measure 'Profit Margin %' = DIVIDE([Total Profit], [Total Revenue])
+		formatString: 0.0%
+		lineageTag: 9e2f45b1-f0aa-4f76-8524-ddc826ff5d6d
+
+	measure 'Revenue Status' =
+			VAR m = [Profit Margin %]
+			VAR icon = SWITCH(TRUE(), m >= 0.8, "🟢", m >= 0.6, "🟠", "🔴")
+			RETURN icon & " £" & FORMAT(DIVIDE([Total Revenue], 1000000), "0.00") & "M"
+		lineageTag: dc5ae9dd-7389-4292-b19d-9a56bc9770a4
+
+	measure 'Profit Status' =
+			VAR m = [Profit Margin %]
+			VAR icon = SWITCH(TRUE(), m >= 0.8, "🟢", m >= 0.6, "🟠", "🔴")
+			RETURN icon & " £" & FORMAT(DIVIDE([Total Profit], 1000000), "0.00") & "M"
+		lineageTag: b8e10330-d934-44f5-8c1e-aed84a845d23
+
+	measure 'Trips Status' = "🔵 " & FORMAT(DIVIDE([Total Trips], 1000), "0") & "K"
+		lineageTag: d7758c8b-7a14-402d-9892-5cb6156af4ad
+
+	measure 'Avg Profit Hour Status' =
+			VAR v = [Average Profit per Hour]
+			VAR icon = SWITCH(TRUE(), v >= 35, "🟢", v >= 25, "🟠", "🔴")
+			RETURN icon & " £" & FORMAT(v, "0.00") & "/hr"
+		lineageTag: 21a09993-c3c4-40b1-8d98-ca70383e19b8
+
+	column full_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 999d18d5-7b4b-4700-adab-d6cf246074b1
+		summarizeBy: none
+		sourceColumn: full_date
+
+		variation Variation
+			isDefault
+			relationship: 2942840e-2da6-43fa-af18-98f0fa3fb690
+			defaultHierarchy: LocalDateTable_6b2d8ceb-dc75-46f3-a717-6bcc78bf1d72.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column day_name
+		dataType: string
+		lineageTag: 94d373a4-e71e-4b6f-bffe-7d4430699783
+		summarizeBy: none
+		sourceColumn: day_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_name
+		dataType: string
+		lineageTag: 1f041589-2e99-4c17-adaf-7bceaec0f4aa
+		summarizeBy: none
+		sourceColumn: month_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: eab6fdd1-b8e9-486b-958f-35d4c9f80864
+		summarizeBy: sum
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_trips
+		dataType: int64
+		formatString: 0
+		lineageTag: 69b73ea3-b784-456d-a681-b0caadca0ae8
+		summarizeBy: sum
+		sourceColumn: total_trips
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_revenue
+		dataType: double
+		lineageTag: d50028d4-9648-4b00-9b9d-e88c2fdd80ea
+		summarizeBy: sum
+		sourceColumn: total_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column total_profit
+		dataType: double
+		lineageTag: ba33f915-c1ab-4de9-a711-fff4b91c02f3
+		summarizeBy: sum
+		sourceColumn: total_profit
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column avg_earnings_per_hour
+		dataType: double
+		lineageTag: 7bf51fe9-9d07-4bf1-be30-c5973a34db01
+		summarizeBy: sum
+		sourceColumn: avg_earnings_per_hour
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column avg_profit_per_hour
+		dataType: double
+		lineageTag: 33710bd5-189f-490b-ac6f-fb70fb018e6a
+		summarizeBy: sum
+		sourceColumn: avg_profit_per_hour
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'public vw_daily_performance' = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("localhost:5432", "ride_hailing_dw"),
+				    public_vw_daily_performance = Source{[Schema="public",Item="vw_daily_performance"]}[Data]
+				in
+				    public_vw_daily_performance
+
+	annotation PBI_ResultType = Table
+

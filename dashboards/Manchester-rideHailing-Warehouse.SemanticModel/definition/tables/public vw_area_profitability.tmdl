@@ -1,0 +1,109 @@
+table 'public vw_area_profitability'
+	lineageTag: b446a270-e52c-4b28-be1c-0d77f10f7595
+
+	measure 'Area Revenue' = SUM('public vw_area_profitability'[total_revenue])
+		formatString: "£"#,##0
+		lineageTag: 1c792dfa-bce3-4fab-a4c8-b048a483b313
+
+	measure 'Area Profit' = SUM('public vw_area_profitability'[total_profit])
+		formatString: "£"#,##0
+		lineageTag: 1f3b5253-f94a-4e35-9eaa-341553128977
+
+	measure 'Area Trips' = SUM('public vw_area_profitability'[total_trips])
+		formatString: #,##0
+		lineageTag: 713ec02a-3684-4ded-8ba8-0015fac45a3c
+
+	measure 'Area Profit Margin %' = DIVIDE([Area Profit], [Area Revenue])
+		formatString: 0%
+		lineageTag: c67b0caa-00f7-4b9f-b86d-f5b4d887dfc1
+
+	measure 'Area Margin Rank' = RANKX(ALL('public vw_area_profitability'[pickup_area]), [Area Profit Margin %], , DESC, Dense)
+		formatString: 0
+		lineageTag: b1b65c07-f4ea-4edc-b8cf-a397d1b5bdf9
+
+	column pickup_area
+		dataType: string
+		lineageTag: c45dd799-38e4-4dcd-8a24-26391b808f08
+		summarizeBy: none
+		sourceColumn: pickup_area
+
+		annotation SummarizationSetBy = Automatic
+
+	column location_type
+		dataType: string
+		lineageTag: d2b40dce-4fd5-4979-99f0-01731b62f0ae
+		summarizeBy: none
+		sourceColumn: location_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_trips
+		dataType: int64
+		formatString: 0
+		lineageTag: 9c2c2a59-6711-4929-b65d-97e1e0a5819b
+		summarizeBy: none
+		sourceColumn: total_trips
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_revenue
+		dataType: double
+		lineageTag: 7c4541b4-b4d7-46c5-94e8-cad53e3757c7
+		summarizeBy: sum
+		sourceColumn: total_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column total_profit
+		dataType: double
+		lineageTag: d493dbb2-b94a-4a2c-b02e-8396cb8a2fd3
+		summarizeBy: sum
+		sourceColumn: total_profit
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column avg_earnings_per_hour
+		dataType: double
+		lineageTag: 47462d99-b260-43fd-8da6-e11a96c8d4bf
+		summarizeBy: sum
+		sourceColumn: avg_earnings_per_hour
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column avg_profit_per_hour
+		dataType: double
+		lineageTag: 19c9f695-2413-4ee9-88f0-04f977ecdef0
+		summarizeBy: sum
+		sourceColumn: avg_profit_per_hour
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column avg_earnings_per_mile
+		dataType: double
+		lineageTag: b7a0afd4-ca40-40e9-a10e-6eef2aa8daae
+		summarizeBy: sum
+		sourceColumn: avg_earnings_per_mile
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'public vw_area_profitability' = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("localhost:5432", "ride_hailing_dw"),
+				    public_vw_area_profitability = Source{[Schema="public",Item="vw_area_profitability"]}[Data]
+				in
+				    public_vw_area_profitability
+
+	annotation PBI_ResultType = Table
+

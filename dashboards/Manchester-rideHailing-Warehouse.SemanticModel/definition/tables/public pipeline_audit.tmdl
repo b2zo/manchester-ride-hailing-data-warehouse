@@ -1,0 +1,157 @@
+table 'public pipeline_audit'
+	lineageTag: 6e5ab9b0-979d-446a-9a09-7460b67a1f19
+
+	measure 'Successful Runs' = CALCULATE(COUNTROWS('public pipeline_audit'), 'public pipeline_audit'[run_status] = "SUCCESS")
+		formatString: 0
+		lineageTag: 7774be32-0469-4d8a-9b7c-c5e9e7c0db84
+
+	measure 'Total Runs' = COUNTROWS('public pipeline_audit')
+		formatString: 0
+		lineageTag: 338efd54-8858-489e-bba0-024af7fe4712
+
+	measure 'Failed Runs' = CALCULATE(COUNTROWS('public pipeline_audit'), 'public pipeline_audit'[run_status] = "FAILED")
+		formatString: 0
+		lineageTag: 6a8906eb-2015-485d-96e2-97c5dd3ef9c7
+
+	measure 'Success Rate %' = DIVIDE([Successful Runs], [Total Runs])
+		formatString: 0.0%
+		lineageTag: d8232e66-5408-42e8-a7b0-79a48fdd43e1
+
+	measure 'Latest Run Status' =
+			VAR LatestStart = MAX('public pipeline_audit'[run_started_at])
+			RETURN CALCULATE(SELECTEDVALUE('public pipeline_audit'[run_status]), 'public pipeline_audit'[run_started_at] = LatestStart)
+		lineageTag: 64cbb0ad-089e-4d30-8c43-5541f462fa53
+
+	measure 'Status Icon' =
+			SWITCH(TRUE(),
+			    [Latest Run Status] = "SUCCESS", "🟢 Success",
+			    [Latest Run Status] = "FAILED", "🔴 Failed",
+			    [Latest Run Status] = "RUNNING", "🟡 Running",
+			    "⚪ Unknown")
+		lineageTag: 871e124d-3db4-411e-86d4-ddca4911d775
+
+	measure 'Latest Refresh' = MAX('public pipeline_audit'[run_finished_at])
+		formatString: General Date
+		lineageTag: c30f11ed-2e81-47ca-923c-fb7128f29fb1
+
+	measure 'Latest Run Duration (sec)' =
+			VAR LatestStart = MAX('public pipeline_audit'[run_started_at])
+			VAR LatestFinish = CALCULATE(MAX('public pipeline_audit'[run_finished_at]), 'public pipeline_audit'[run_started_at] = LatestStart)
+			RETURN DATEDIFF(LatestStart, LatestFinish, SECOND)
+		formatString: 0"s"
+		lineageTag: 9d4c1a2b-3e5f-4a7c-8b9d-1e2f3a4b5c6d
+
+	measure 'Latest Rows Loaded' =
+			VAR LatestStart = MAX('public pipeline_audit'[run_started_at])
+			RETURN CALCULATE(SUM('public pipeline_audit'[rows_loaded]), 'public pipeline_audit'[run_started_at] = LatestStart)
+		formatString: #,##0
+		lineageTag: 2a4b6c8d-0e1f-4a3b-9c5d-7e8f9a0b1c2d
+
+	measure 'Rows per Second' = DIVIDE([Latest Rows Loaded], [Latest Run Duration (sec)])
+		formatString: #,##0" rows/s"
+		lineageTag: 5b7c9d1e-2f3a-4b5c-8d6e-9f0a1b2c3d4e
+
+	measure 'Run Count' = COUNTROWS('public pipeline_audit')
+		formatString: 0
+		lineageTag: 8e1f2a3b-4c5d-6e7f-8a9b-0c1d2e3f4a5b
+
+	measure 'Error Count' = CALCULATE(COUNTROWS('public pipeline_audit'), 'public pipeline_audit'[Error Type] <> "None")
+		formatString: 0
+		lineageTag: 9f2a3b4c-5d6e-7f8a-9b0c-1d2e3f4a5b6c
+
+	column audit_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 9132b010-f510-451b-b19e-be21cc370b16
+		summarizeBy: sum
+		sourceColumn: audit_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column pipeline_name
+		dataType: string
+		lineageTag: fbb85fa0-6441-43a3-bc54-1012f0edf47a
+		summarizeBy: none
+		sourceColumn: pipeline_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column run_status
+		dataType: string
+		lineageTag: 42931be3-5b0e-4b98-96be-a723d60a0f8d
+		summarizeBy: none
+		sourceColumn: run_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column rows_loaded
+		dataType: int64
+		formatString: 0
+		lineageTag: ec95271b-170d-4acf-a32e-9637c0b356a1
+		summarizeBy: sum
+		sourceColumn: rows_loaded
+
+		annotation SummarizationSetBy = Automatic
+
+	column run_started_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: a580e5ea-17b7-437b-b6ce-aa0d0d8496ee
+		summarizeBy: none
+		sourceColumn: run_started_at
+
+		variation Variation
+			isDefault
+			relationship: 41b7a965-4cd4-4bcc-9e13-8c3190018401
+			defaultHierarchy: LocalDateTable_43a08f77-5ae1-451c-8223-060f0b144207.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column run_finished_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: f072cae8-7b11-4f98-ab14-66d4b67766df
+		summarizeBy: none
+		sourceColumn: run_finished_at
+
+		variation Variation
+			isDefault
+			relationship: 5c09d98b-6174-4f6e-8283-bee35a3e702e
+			defaultHierarchy: LocalDateTable_7a2d9e6d-9a65-428b-9453-bff87676c668.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column error_message
+		dataType: string
+		lineageTag: 39f5477e-55ca-49c8-a093-b956baa26e11
+		summarizeBy: none
+		sourceColumn: error_message
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Error Type' =
+			SWITCH(TRUE(),
+			    ISBLANK('public pipeline_audit'[error_message]), "None",
+			    CONTAINSSTRING('public pipeline_audit'[error_message], "timeout"), "Timeout",
+			    CONTAINSSTRING('public pipeline_audit'[error_message], "connection"), "Connection Error",
+			    CONTAINSSTRING('public pipeline_audit'[error_message], "schema") || CONTAINSSTRING('public pipeline_audit'[error_message], "column"), "Schema Mismatch",
+			    CONTAINSSTRING('public pipeline_audit'[error_message], "permission") || CONTAINSSTRING('public pipeline_audit'[error_message], "denied"), "Permission Error",
+			    CONTAINSSTRING('public pipeline_audit'[error_message], "memory"), "Resource / Memory",
+			    "Other")
+		dataType: string
+		lineageTag: 7c8d9e0f-1a2b-4c3d-9e4f-5a6b7c8d9e0f
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'public pipeline_audit' = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("localhost:5432", "ride_hailing_dw"),
+				    public_pipeline_audit = Source{[Schema="public",Item="pipeline_audit"]}[Data]
+				in
+				    public_pipeline_audit
+
+	annotation PBI_ResultType = Table
+

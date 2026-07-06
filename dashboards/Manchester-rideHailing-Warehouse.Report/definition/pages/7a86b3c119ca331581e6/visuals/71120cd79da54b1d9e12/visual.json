@@ -1,0 +1,71 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "71120cd79da54b1d9e12",
+  "position": {
+    "x": 446.59030837004406,
+    "y": 75.559471365638771,
+    "z": 3000,
+    "height": 137.58590308370043,
+    "width": 274.04405286343615,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "public vw_airport_performance"
+                    }
+                  },
+                  "Property": "Airport Profit"
+                }
+              },
+              "queryRef": "public vw_airport_performance.Airport Profit",
+              "nativeQueryRef": "Airport Profit"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "public vw_airport_performance"
+                  }
+                },
+                "Property": "Airport Profit"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'💰 Airport Profit'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

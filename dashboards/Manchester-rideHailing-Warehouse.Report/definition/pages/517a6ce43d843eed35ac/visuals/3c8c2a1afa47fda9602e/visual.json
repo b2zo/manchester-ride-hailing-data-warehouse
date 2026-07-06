@@ -1,0 +1,391 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "3c8c2a1afa47fda9602e",
+  "position": {
+    "x": 171.16279069767441,
+    "y": 539.2368247100535,
+    "z": 8000,
+    "height": 133.953488372093,
+    "width": 613.953488372093,
+    "tabOrder": 10000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "public pipeline_audit"
+                    }
+                  },
+                  "Property": "pipeline_name"
+                }
+              },
+              "queryRef": "public pipeline_audit.pipeline_name",
+              "nativeQueryRef": "pipeline_name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "public pipeline_audit"
+                    }
+                  },
+                  "Property": "run_status"
+                }
+              },
+              "queryRef": "public pipeline_audit.run_status",
+              "nativeQueryRef": "run_status"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "public pipeline_audit"
+                        }
+                      },
+                      "Property": "rows_loaded"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(public pipeline_audit.rows_loaded)",
+              "nativeQueryRef": "Sum of rows_loaded"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "public pipeline_audit"
+                    }
+                  },
+                  "Property": "Latest Run Duration (sec)"
+                }
+              },
+              "queryRef": "public pipeline_audit.Latest Run Duration (sec)",
+              "nativeQueryRef": "Latest Run Duration (sec)"
+            },
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "PropertyVariationSource": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "public pipeline_audit"
+                            }
+                          },
+                          "Name": "Variation",
+                          "Property": "run_started_at"
+                        }
+                      },
+                      "Hierarchy": "Date Hierarchy"
+                    }
+                  },
+                  "Level": "Day"
+                }
+              },
+              "queryRef": "public pipeline_audit.run_started_at.Variation.Date Hierarchy.Day",
+              "nativeQueryRef": "run_started_at Day"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "values": [
+        {
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Conditional": {
+                      "Cases": [
+                        {
+                          "Condition": {
+                            "Comparison": {
+                              "ComparisonKind": 0,
+                              "Left": {
+                                "Aggregation": {
+                                  "Expression": {
+                                    "Column": {
+                                      "Expression": {
+                                        "SourceRef": {
+                                          "Entity": "public pipeline_audit"
+                                        }
+                                      },
+                                      "Property": "run_status"
+                                    }
+                                  },
+                                  "Function": 3
+                                }
+                              },
+                              "Right": {
+                                "Literal": {
+                                  "Value": "'SUCCESS'"
+                                }
+                              }
+                            },
+                            "Annotations": {
+                              "PowerBI.SQExprEvaluationKind": 1,
+                              "PowerBI.SQExprTextOperatorOption": 2
+                            }
+                          },
+                          "Value": {
+                            "Literal": {
+                              "Value": "'#2ECC71'"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "public pipeline_audit.run_status"
+          }
+        },
+        {
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "FillRule": {
+                      "Input": {
+                        "Measure": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "public pipeline_audit"
+                            }
+                          },
+                          "Property": "Latest Run Duration (sec)"
+                        }
+                      },
+                      "FillRule": {
+                        "linearGradient2": {
+                          "min": {
+                            "color": {
+                              "Literal": {
+                                "Value": "'#E74C3C'"
+                              }
+                            }
+                          },
+                          "max": {
+                            "color": {
+                              "Literal": {
+                                "Value": "'#2ECC71'"
+                              }
+                            }
+                          },
+                          "nullColoringStrategy": {
+                            "strategy": {
+                              "Literal": {
+                                "Value": "'asZero'"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "public pipeline_audit.Latest Run Duration (sec)"
+          }
+        }
+      ],
+      "columnFormatting": [
+        {
+          "properties": {
+            "dataBars": {
+              "positiveColor": {
+                "solid": {
+                  "color": {
+                    "expr": {
+                      "Literal": {
+                        "Value": "'maxColor'"
+                      }
+                    }
+                  }
+                }
+              },
+              "negativeColor": {
+                "solid": {
+                  "color": {
+                    "expr": {
+                      "Literal": {
+                        "Value": "'minColor'"
+                      }
+                    }
+                  }
+                }
+              },
+              "axisColor": {
+                "solid": {
+                  "color": {
+                    "expr": {
+                      "Literal": {
+                        "Value": "'foreground'"
+                      }
+                    }
+                  }
+                }
+              },
+              "reverseDirection": {
+                "expr": {
+                  "Literal": {
+                    "Value": "false"
+                  }
+                }
+              },
+              "hideText": {
+                "expr": {
+                  "Literal": {
+                    "Value": "false"
+                  }
+                }
+              },
+              "totalMatchingOption": {
+                "expr": {
+                  "Literal": {
+                    "Value": "1L"
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Sum(public pipeline_audit.rows_loaded)"
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "parentGroupName": "570a11fee37d66f1258d",
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "de27d7442dda5b447dbd",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "public pipeline_audit"
+              }
+            },
+            "Property": "pipeline_name"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "7d5517e9e12a7006bdef",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "public pipeline_audit"
+              }
+            },
+            "Property": "run_status"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "ca0af2d4143fe9bdd110",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "public pipeline_audit"
+                  }
+                },
+                "Property": "rows_loaded"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "00d9143d883a94191082",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "public pipeline_audit"
+              }
+            },
+            "Property": "Latest Run Duration (sec)"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "148dc1b30dcb4843e010",
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "PropertyVariationSource": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "public pipeline_audit"
+                      }
+                    },
+                    "Name": "Variation",
+                    "Property": "run_started_at"
+                  }
+                },
+                "Hierarchy": "Date Hierarchy"
+              }
+            },
+            "Level": "Day"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

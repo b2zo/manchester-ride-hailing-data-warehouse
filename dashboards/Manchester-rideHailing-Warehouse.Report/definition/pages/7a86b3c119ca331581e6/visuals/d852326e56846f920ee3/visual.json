@@ -1,0 +1,179 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "d852326e56846f920ee3",
+  "position": {
+    "x": 224.49612403100775,
+    "y": 610.23255813953483,
+    "z": 5000,
+    "height": 109.14728682170542,
+    "width": 1009.6124031007752,
+    "tabOrder": 12000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "public vw_airport_performance"
+                    }
+                  },
+                  "Property": "trip_category"
+                }
+              },
+              "queryRef": "public vw_airport_performance.trip_category",
+              "nativeQueryRef": "trip_category"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "public vw_airport_performance"
+                    }
+                  },
+                  "Property": "Airport Revenue"
+                }
+              },
+              "queryRef": "public vw_airport_performance.Airport Revenue",
+              "nativeQueryRef": "Airport Revenue"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "public vw_airport_performance"
+                    }
+                  },
+                  "Property": "Airport Profit"
+                }
+              },
+              "queryRef": "public vw_airport_performance.Airport Profit",
+              "nativeQueryRef": "Airport Profit"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "public vw_airport_performance"
+                    }
+                  },
+                  "Property": "Airport Trips"
+                }
+              },
+              "queryRef": "public vw_airport_performance.Airport Trips",
+              "nativeQueryRef": "Airport Trips"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "public vw_airport_performance"
+                    }
+                  },
+                  "Property": "Revenue per Trip"
+                }
+              },
+              "queryRef": "public vw_airport_performance.Revenue per Trip",
+              "nativeQueryRef": "Revenue per Trip"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "public vw_airport_performance"
+                    }
+                  },
+                  "Property": "Profit per Mile"
+                }
+              },
+              "queryRef": "public vw_airport_performance.Profit per Mile",
+              "nativeQueryRef": "Profit per Mile"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "public vw_airport_performance"
+                        }
+                      },
+                      "Property": "avg_duration"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(public vw_airport_performance.avg_duration)",
+              "nativeQueryRef": "Sum of avg_duration"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "public vw_airport_performance"
+                        }
+                      },
+                      "Property": "avg_distance"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(public vw_airport_performance.avg_distance)",
+              "nativeQueryRef": "Sum of avg_distance"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "public vw_airport_performance"
+                  }
+                },
+                "Property": "Revenue per Trip"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "values": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "parentGroupName": "7d8d282c1d88919584c8"
+}

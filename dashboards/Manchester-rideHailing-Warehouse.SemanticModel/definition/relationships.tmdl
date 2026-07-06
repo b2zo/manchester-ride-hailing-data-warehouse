@@ -1,0 +1,21 @@
+relationship 2942840e-2da6-43fa-af18-98f0fa3fb690
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'public vw_daily_performance'.full_date
+	toColumn: LocalDateTable_6b2d8ceb-dc75-46f3-a717-6bcc78bf1d72.Date
+
+relationship 41b7a965-4cd4-4bcc-9e13-8c3190018401
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'public pipeline_audit'.run_started_at
+	toColumn: LocalDateTable_43a08f77-5ae1-451c-8223-060f0b144207.Date
+
+relationship 5c09d98b-6174-4f6e-8283-bee35a3e702e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'public pipeline_audit'.run_finished_at
+	toColumn: LocalDateTable_7a2d9e6d-9a65-428b-9453-bff87676c668.Date
+
+relationship AutoDetected_8d052999-f968-4063-9430-fda99ea06543
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'public vw_airport_performance'.total_trips
+	toColumn: 'public vw_area_profitability'.total_trips
+

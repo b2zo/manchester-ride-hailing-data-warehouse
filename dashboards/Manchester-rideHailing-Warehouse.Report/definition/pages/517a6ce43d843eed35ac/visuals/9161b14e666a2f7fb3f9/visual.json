@@ -1,0 +1,86 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "9161b14e666a2f7fb3f9",
+  "position": {
+    "x": 5.6387665198237888,
+    "y": 627.03083700440527,
+    "z": 12000,
+    "height": 92.475770925110126,
+    "width": 149.99118942731278,
+    "tabOrder": 7000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Source: PostgreSQL",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#d6e6f2"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Pipeline: Python ETL",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#d6e6f2"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Monitoring: Power BI",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#d6e6f2"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Refresh: Daily",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#d6e6f2"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "100D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "parentGroupName": "570a11fee37d66f1258d"
+}

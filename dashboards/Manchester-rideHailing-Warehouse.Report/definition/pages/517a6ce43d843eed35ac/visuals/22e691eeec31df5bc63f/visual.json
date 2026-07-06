@@ -1,0 +1,123 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "22e691eeec31df5bc63f",
+  "position": {
+    "x": 160,
+    "y": 263.88798750075114,
+    "z": 6000,
+    "height": 257.984496124031,
+    "width": 256.74418604651163,
+    "tabOrder": 8000
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "public pipeline_audit"
+                    }
+                  },
+                  "Property": "run_started_at"
+                }
+              },
+              "queryRef": "public pipeline_audit.run_started_at",
+              "nativeQueryRef": "run_started_at Day",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "public pipeline_audit"
+                    }
+                  },
+                  "Property": "Latest Run Duration (sec)"
+                }
+              },
+              "queryRef": "public pipeline_audit.Latest Run Duration (sec)",
+              "nativeQueryRef": "Latest Run Duration (sec)"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "public pipeline_audit"
+                  }
+                },
+                "Property": "run_started_at"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Pipeline Runtime'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "parentGroupName": "570a11fee37d66f1258d",
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "fd53f47496ec6fd90047",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "public pipeline_audit"
+              }
+            },
+            "Property": "Latest Run Duration (sec)"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "3079507d23e709f33697",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "public pipeline_audit"
+              }
+            },
+            "Property": "run_started_at"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+pickup_area,location_type,total_trips,total_revenue,total_profit,avg_earnings_per_hour,avg_profit_per_hour,avg_earnings_per_mile
+Trafford Centre,Suburban,6143,222304.25,191068.16,36.68,31.54,2.00
+Deansgate,City Centre,6288,228323.74,196410.29,36.42,31.34,2.00
+MediaCityUK,City Centre,6167,224181.32,192676.25,36.47,31.35,2.00
+Stockport,Suburban,6323,232232.27,199851.15,36.81,31.67,2.00
+Piccadilly,City Centre,6280,226701.21,195116.87,36.82,31.68,2.00
+Salford Quays,City Centre,6156,220742.74,189752.79,36.41,31.31,2.00
+Manchester Airport,Airport,6237,227496.32,195803.03,36.70,31.58,2.01
+Old Trafford,Suburban,6406,229585.11,197450.64,36.83,31.67,2.00

@@ -1,0 +1,71 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "d40f9a1ab8da448b3dba",
+  "position": {
+    "x": 169.16299559471366,
+    "y": 75.559471365638771,
+    "z": 2000,
+    "height": 137.58590308370043,
+    "width": 274.04405286343615,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "public vw_airport_performance"
+                    }
+                  },
+                  "Property": "Airport Revenue"
+                }
+              },
+              "queryRef": "public vw_airport_performance.Airport Revenue",
+              "nativeQueryRef": "Airport Revenue"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "public vw_airport_performance"
+                  }
+                },
+                "Property": "Airport Revenue"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'🏆 Airport Revenue'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

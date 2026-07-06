@@ -1,0 +1,137 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "b6bc6aebdf6f74c8a428",
+  "position": {
+    "x": 182.32558139534882,
+    "y": 456.4341085271318,
+    "z": 3000,
+    "height": 153.79844961240309,
+    "width": 1061.7054263565892,
+    "tabOrder": 10000
+  },
+  "visual": {
+    "visualType": "barChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "public vw_airport_performance"
+                    }
+                  },
+                  "Property": "trip_category"
+                }
+              },
+              "queryRef": "public vw_airport_performance.trip_category",
+              "nativeQueryRef": "trip_category",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "public vw_airport_performance"
+                    }
+                  },
+                  "Property": "Revenue per Trip"
+                }
+              },
+              "queryRef": "public vw_airport_performance.Revenue per Trip",
+              "nativeQueryRef": "Revenue per Trip"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "public vw_airport_performance"
+                  }
+                },
+                "Property": "Revenue per Trip"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "dataPoint": [
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 2,
+                      "Percent": -0.5
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "public vw_airport_performance"
+                          }
+                        },
+                        "Property": "trip_category"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Non-Airport Trip'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Revenue per Trip'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "parentGroupName": "7d8d282c1d88919584c8"
+}

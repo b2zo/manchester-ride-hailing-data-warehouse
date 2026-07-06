@@ -1,0 +1,88 @@
+table 'public vw_hourly_performance'
+	lineageTag: fa550773-2ee1-46eb-9bae-de4f8f4aced3
+
+	column hour_of_day
+		dataType: int64
+		formatString: 0
+		lineageTag: 2d066f4b-9658-48e7-bb3f-6424b985d9d1
+		summarizeBy: sum
+		sourceColumn: hour_of_day
+
+		annotation SummarizationSetBy = Automatic
+
+	column time_period
+		dataType: string
+		lineageTag: b1682426-b0a2-493d-9fef-8f020a559278
+		summarizeBy: none
+		sourceColumn: time_period
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_peak_hour
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: f97e32ed-dfdd-4a04-bc47-01a2276d40e9
+		summarizeBy: none
+		sourceColumn: is_peak_hour
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_night_shift
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: b6fc21ad-321d-463b-8043-c2b30e2720be
+		summarizeBy: none
+		sourceColumn: is_night_shift
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_trips
+		dataType: int64
+		formatString: 0
+		lineageTag: ee8395a4-bfb4-4d41-8aec-b372cbf4c212
+		summarizeBy: sum
+		sourceColumn: total_trips
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_revenue
+		dataType: double
+		lineageTag: 51de1824-91f3-4686-97b8-394b6cbb5544
+		summarizeBy: sum
+		sourceColumn: total_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column total_profit
+		dataType: double
+		lineageTag: cd682381-9b9e-4e4f-a1b8-dc130ead4f41
+		summarizeBy: sum
+		sourceColumn: total_profit
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column avg_profit_per_hour
+		dataType: double
+		lineageTag: 5d89943b-38f5-47ed-b09b-282e1d9d577b
+		summarizeBy: sum
+		sourceColumn: avg_profit_per_hour
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'public vw_hourly_performance' = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("localhost:5432", "ride_hailing_dw"),
+				    public_vw_hourly_performance = Source{[Schema="public",Item="vw_hourly_performance"]}[Data]
+				in
+				    public_vw_hourly_performance
+
+	annotation PBI_ResultType = Table
+

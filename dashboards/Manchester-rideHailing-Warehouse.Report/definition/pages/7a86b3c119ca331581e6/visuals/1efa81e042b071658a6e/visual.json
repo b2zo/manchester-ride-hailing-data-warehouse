@@ -1,0 +1,76 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "1efa81e042b071658a6e",
+  "position": {
+    "x": 946.35658914728674,
+    "y": 234.41860465116278,
+    "z": 4000,
+    "height": 222.015503875969,
+    "width": 333.64341085271315,
+    "tabOrder": 11000
+  },
+  "visual": {
+    "visualType": "donutChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "public vw_airport_performance"
+                    }
+                  },
+                  "Property": "trip_category"
+                }
+              },
+              "queryRef": "public vw_airport_performance.trip_category",
+              "nativeQueryRef": "trip_category",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "public vw_airport_performance"
+                    }
+                  },
+                  "Property": "Airport Trips"
+                }
+              },
+              "queryRef": "public vw_airport_performance.Airport Trips",
+              "nativeQueryRef": "Airport Trips"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "public vw_airport_performance"
+                  }
+                },
+                "Property": "Airport Trips"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "parentGroupName": "7d8d282c1d88919584c8"
+}

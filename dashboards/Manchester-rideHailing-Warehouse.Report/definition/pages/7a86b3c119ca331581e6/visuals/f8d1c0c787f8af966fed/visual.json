@@ -1,0 +1,83 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "f8d1c0c787f8af966fed",
+  "position": {
+    "x": 994.6784140969163,
+    "y": 75.559471365638771,
+    "z": 5000,
+    "height": 137.58590308370043,
+    "width": 274.04405286343615,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "public vw_airport_performance"
+                        }
+                      },
+                      "Property": "avg_profit_per_hour"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(public vw_airport_performance.avg_profit_per_hour)",
+              "nativeQueryRef": "Average Fare per Airport Trip",
+              "displayName": "Average Fare per Airport Trip",
+              "format": "0.0"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "public vw_airport_performance"
+                      }
+                    },
+                    "Property": "avg_profit_per_hour"
+                  }
+                },
+                "Function": 0
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'💳 Average Fare'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,117 @@
+table 'public vw_airport_performance'
+	lineageTag: da138004-72a1-4a99-a852-fcf0864d7da1
+
+	measure 'Airport Revenue' = SUM('public vw_airport_performance'[total_revenue])
+		formatString: "£"#,##0
+		lineageTag: 5118a96c-3f14-4033-9234-7cde215c6510
+
+	measure 'Airport Profit' = SUM('public vw_airport_performance'[total_profit])
+		formatString: "£"#,##0
+		lineageTag: 4d570f64-8b52-4169-9652-2d88f205b4b1
+
+	measure 'Airport Trips' = SUM('public vw_airport_performance'[total_trips])
+		formatString: #,##0
+		lineageTag: 72c69c59-0a8e-43de-bf19-e78b1ba8d527
+
+	measure 'Average Distance' = AVERAGE('public vw_airport_performance'[avg_distance])
+		formatString: 0.0" mi"
+		lineageTag: 91c03b55-7fa3-4c21-802a-197ecf395c61
+
+	measure 'Average Duration' = AVERAGE('public vw_airport_performance'[avg_duration])
+		formatString: 0.0" min"
+		lineageTag: a2c79cc7-7a04-44d5-acf6-df23d8b20a47
+
+	measure 'Airport Avg Profit per Hour' = AVERAGE('public vw_airport_performance'[avg_profit_per_hour])
+		formatString: """£""#,##0.00""/hr"""
+		lineageTag: d40344b1-34e8-4759-b918-54bb9d9216c0
+
+	measure 'Revenue per Trip' = DIVIDE([Airport Revenue], [Airport Trips])
+		formatString: "£"#,##0.00
+		lineageTag: 2f2184a2-f860-490c-903c-4b7ae344cd38
+
+	measure 'Average Fare' = DIVIDE([Airport Revenue], [Airport Trips])
+		formatString: "£"#,##0.00
+		lineageTag: cb31cd38-cc0d-4f41-9e4c-fd51e8114ff0
+
+	measure 'Profit per Mile' = DIVIDE([Airport Profit], [Airport Trips] * [Average Distance])
+		formatString: "£"#,##0.00
+		lineageTag: 60b22561-b0fa-40f1-a4ee-04a7cb18889e
+
+	column trip_category
+		dataType: string
+		lineageTag: acee85a2-d745-4440-a66e-9180ddab93e2
+		summarizeBy: none
+		sourceColumn: trip_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_trips
+		dataType: int64
+		formatString: 0
+		lineageTag: 39985efc-ece2-48fd-98bf-485b250602a7
+		summarizeBy: none
+		sourceColumn: total_trips
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_revenue
+		dataType: double
+		lineageTag: a26f4f47-d4fc-406f-9c47-691670f0bb98
+		summarizeBy: sum
+		sourceColumn: total_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column total_profit
+		dataType: double
+		lineageTag: 5e0d6dde-b5aa-4c5c-8a19-c30c912dd135
+		summarizeBy: sum
+		sourceColumn: total_profit
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column avg_distance
+		dataType: double
+		lineageTag: 72e24b30-025a-4f84-8dbc-9222d5e25d0a
+		summarizeBy: sum
+		sourceColumn: avg_distance
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column avg_duration
+		dataType: double
+		lineageTag: 8e8cb842-1a1f-4939-bec0-76e59d40cf13
+		summarizeBy: sum
+		sourceColumn: avg_duration
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column avg_profit_per_hour
+		dataType: double
+		lineageTag: 1748a0ed-ef65-4b74-8c59-fae057191b57
+		summarizeBy: sum
+		sourceColumn: avg_profit_per_hour
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'public vw_airport_performance' = m
+		mode: import
+		source =
+				let
+				    Source = PostgreSQL.Database("localhost:5432", "ride_hailing_dw"),
+				    public_vw_airport_performance = Source{[Schema="public",Item="vw_airport_performance"]}[Data]
+				in
+				    public_vw_airport_performance
+
+	annotation PBI_ResultType = Table
+

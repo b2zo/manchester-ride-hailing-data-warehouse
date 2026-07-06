@@ -1,0 +1,123 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "74efcacc1cf13e63fc54",
+  "position": {
+    "x": 437.82945736434107,
+    "y": 263.88798750075114,
+    "z": 7000,
+    "height": 257.984496124031,
+    "width": 420.46511627906978,
+    "tabOrder": 9000
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "public pipeline_audit"
+                    }
+                  },
+                  "Property": "run_status"
+                }
+              },
+              "queryRef": "public pipeline_audit.run_status",
+              "nativeQueryRef": "run_status",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "public pipeline_audit"
+                    }
+                  },
+                  "Property": "Run Count"
+                }
+              },
+              "queryRef": "public pipeline_audit.Run Count",
+              "nativeQueryRef": "Run Count"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "public pipeline_audit"
+                  }
+                },
+                "Property": "Run Count"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Pipeline Success Rate'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "parentGroupName": "570a11fee37d66f1258d",
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "858eba2c406ec80cdb35",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "public pipeline_audit"
+              }
+            },
+            "Property": "Run Count"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "3febe3a0d357ab3b24a4",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "public pipeline_audit"
+              }
+            },
+            "Property": "run_status"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}

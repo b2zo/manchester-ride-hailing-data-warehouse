@@ -1,0 +1,99 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 521,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 568,
+            "y": 49
+          },
+          "nodeIndex": "public pipeline_audit",
+          "nodeLineageTag": "6e5ab9b0-979d-446a-9a09-7460b67a1f19",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 334,
+            "y": -1
+          },
+          "nodeIndex": "public vw_airport_performance",
+          "nodeLineageTag": "da138004-72a1-4a99-a852-fcf0864d7da1",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 50,
+            "y": -13
+          },
+          "nodeIndex": "public vw_area_profitability",
+          "nodeLineageTag": "b446a270-e52c-4b28-be1c-0d77f10f7595",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 852,
+            "y": 25
+          },
+          "nodeIndex": "public vw_daily_performance",
+          "nodeLineageTag": "5ee66418-2018-4934-9296-6fe4655012b4",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1136,
+            "y": 37
+          },
+          "nodeIndex": "public vw_hourly_performance",
+          "nodeLineageTag": "fa550773-2ee1-46eb-9bae-de4f8f4aced3",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1604,
+            "y": 115
+          },
+          "nodeIndex": "_Measure",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

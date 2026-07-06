@@ -1,0 +1,83 @@
+table _Measure
+	lineageTag: 1550da20-f490-4ae4-920b-f493cac3fc9a
+
+	measure 'Dynamic Title' =
+			
+			VAR SelectedMonth =
+			    COALESCE(
+			        SELECTEDVALUE('public vw_daily_performance'[month_name]),
+			        "All Months"
+			    )
+			
+			VAR SelectedArea =
+			    COALESCE(
+			        SELECTEDVALUE('public vw_area_profitability'[pickup_area]),
+			        "All Areas"
+			    )
+			
+			RETURN
+			"Executive Dashboard | " &
+			SelectedMonth &
+			" | " &
+			SelectedArea
+		lineageTag: 3c8afb28-bac2-4dd6-b7a2-085c1802a3ce
+
+	measure 'Measure 2'
+		lineageTag: a58a75b1-ff1c-46ed-a601-89fd0342ad7e
+
+		annotation 43dbc3e8-3a1c-4b6f-9923-b49ff7d6691c = True
+
+	measure 'Average Profit per Trip' =
+			
+			DIVIDE(
+			    SUM('public vw_area_profitability'[total_profit]),
+			    SUM('public vw_area_profitability'[total_trips]),
+			    0
+			)
+		lineageTag: c33b6ef5-74fc-4071-b634-928c14daf720
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Pipeline Health Score' =
+			
+			VAR Success = [Success Rate %]
+			VAR RuntimePenalty =
+			    MIN(10, DIVIDE([Latest Run Duration (sec)], 60, 0))
+			RETURN
+			ROUND(Success - RuntimePenalty, 1)
+		formatString: 0%;-0%;0%
+		lineageTag: 97b5fead-0a3f-42be-b27e-cd144c188a1f
+
+	measure 'Pipeline Status Icon' =
+			
+			SWITCH(
+			TRUE(),
+			[Pipeline Health Score] >= 0.95,"🟢 Excellent",
+			[Pipeline Health Score] >= 0.85,"🟢 Healthy",
+			[Pipeline Health Score] >= 0.70,"🟡 Warning",
+			[Pipeline Health Score] >= 0.50,"🟠 Degraded",
+			"🔴 Critical"
+			)
+		lineageTag: 1ea3c2ec-df00-4c7f-9987-3303fec45d75
+
+	column Measure
+		dataType: string
+		lineageTag: 0fe3d659-52ea-4c0d-aa55-8f1a1d02de5e
+		summarizeBy: none
+		sourceColumn: Measure
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Measure = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Measure = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Measure", type text}})
+				in
+				    #"Changed Type"
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+

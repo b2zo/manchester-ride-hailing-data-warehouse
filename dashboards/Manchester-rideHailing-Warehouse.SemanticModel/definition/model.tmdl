@@ -1,0 +1,27 @@
+model Model
+	culture: en-GB
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-GB
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["public vw_airport_performance","public vw_area_profitability","public vw_hourly_performance","public vw_daily_performance","public pipeline_audit","_Measure"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table 'public vw_airport_performance'
+ref table 'public vw_area_profitability'
+ref table 'public vw_hourly_performance'
+ref table 'public vw_daily_performance'
+ref table DateTableTemplate_8cd3842d-ecaa-47d1-9159-2809f0751e97
+ref table LocalDateTable_6b2d8ceb-dc75-46f3-a717-6bcc78bf1d72
+ref table 'public pipeline_audit'
+ref table LocalDateTable_43a08f77-5ae1-451c-8223-060f0b144207
+ref table LocalDateTable_7a2d9e6d-9a65-428b-9453-bff87676c668
+ref table _Measure
+
+ref cultureInfo en-GB
+
