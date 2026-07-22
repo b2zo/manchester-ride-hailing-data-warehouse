@@ -223,7 +223,7 @@ psql -d ride_hailing_dw -f sql/views.sql
 ### 5. Run the ETL pipeline
 
 ```bash
-python src/load.py
+python src/main.py
 ```
 
 ### 6. Open the dashboard
@@ -245,6 +245,23 @@ Open the Power BI report in the `dashboards/` directory and update the PostgreSQ
 - GitHub documentation
 
 ---
+
+## 📚 Documentation
+
+Additional project documentation is available in the `docs/` folder:
+
+| Document | Description |
+|----------|-------------|
+| Business Case | Project objectives and requirements |
+| System Architecture | High-level architecture diagram |
+| Database Model | Star schema design |
+| ETL Workflow | End-to-end data pipeline |
+| Data Quality | Validation rules |
+| SQL Views | Analytical SQL layer |
+| Power BI Model | Semantic model |
+| DAX Measures | Business calculations |
+| KPI Definitions | Dashboard metrics |
+| Dashboard Guide | Report walkthrough |
 
 ## Potential Production Enhancements
 

@@ -11,13 +11,8 @@ Purpose:
 - Write operational logs to logs/pipeline.log
 """
 
-import sys
-from pathlib import Path
+
 from datetime import datetime
-
-
-# Allow Python to find the src/ folder when running this script directly
-sys.path.append(str(Path(__file__).resolve().parents[2]))
 
 
 # Import database connection helper
