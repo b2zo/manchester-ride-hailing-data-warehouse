@@ -4,6 +4,7 @@
 
 __pycache__/
 *.pyc
+*.py[cod]
 
 # ==========================================
 # Virtual Environment
@@ -36,7 +37,8 @@ data/staging/*.csv
 # Power BI
 # ==========================================
 
-*.pbix
+*.pbix.autosave
+*.pbitmp
 
 # ==========================================
 # VS Code
@@ -45,7 +47,8 @@ data/staging/*.csv
 .vscode/
 
 # ==========================================
-# Windows
+# Windows / editor
 # ==========================================
 .DS_Store
 Thumbs.db
+.ipynb_checkpoints/

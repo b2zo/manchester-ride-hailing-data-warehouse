@@ -183,28 +183,52 @@ Reporting views include:
 
 ## How to Run
 
+### 1. Clone the repository
+
 ```bash
-git clone https://github.com/YOUR_USERNAME/Manchester-Ride-Hailing-Data-Warehouse.git
-cd Manchester-Ride-Hailing-Data-Warehouse
+git clone https://github.com/b2zo/manchester-ride-hailing-data-warehouse.git
+cd manchester-ride-hailing-data-warehouse
+```
+
+### 2. Create and activate a virtual environment
+
+**Windows PowerShell**
+
+```powershell
 python -m venv .venv
-.venv\Scripts\activate
+.venv\Scripts\Activate.ps1
+```
+
+**Windows Command Prompt**
+
+```cmd
+python -m venv .venv
+.venv\Scripts\activate.bat
+```
+
+### 3. Install dependencies
+
+```bash
 pip install -r requirements.txt
 ```
 
-Create PostgreSQL database and run SQL scripts:
+### 4. Create the PostgreSQL database
 
 ```bash
+createdb ride_hailing_dw
 psql -d ride_hailing_dw -f sql/schema.sql
 psql -d ride_hailing_dw -f sql/views.sql
 ```
 
-Run the ETL pipeline:
+### 5. Run the ETL pipeline
 
 ```bash
 python src/load.py
 ```
 
-Open the Power BI report in the `dashboards/` folder and update PostgreSQL connection settings if required.
+### 6. Open the dashboard
+
+Open the Power BI report in the `dashboards/` directory and update the PostgreSQL connection details where required.
 
 ---
 
@@ -222,7 +246,7 @@ Open the Power BI report in the `dashboards/` folder and update PostgreSQL conne
 
 ---
 
-## Future Enhancements
+## Potential Production Enhancements
 
 - Docker Compose setup
 - dbt transformations
